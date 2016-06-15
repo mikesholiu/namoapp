@@ -14,6 +14,7 @@ const styles = require('../styles.js')
 const constants = styles.constants;
 
 var Sound = require('react-native-sound');
+Sound.enableInSilenceMode(true);
 
 var chant = new Sound('namochant.aif', Sound.MAIN_BUNDLE, (error) => {
   if (error) {
@@ -27,14 +28,15 @@ var chant = new Sound('namochant.aif', Sound.MAIN_BUNDLE, (error) => {
 class PlayButton extends Component {
 	constructor(props) {
     	super(props);
-    	this.state = {
+      this.state = {
     		pressStatus: false,
     	}
     	this.onChange = this.onChange.bind(this) //WHAT IS AUTOBINDING? UNDERSTAND THIS!
+      chant.setCategory("Playback");
     }
 
   	onChange(){
-  		if(this.state.pressStatus == false){
+      if(this.state.pressStatus == false){
   			this.setState({pressStatus: true});
         chant.play(); 
         chant.setNumberOfLoops(-1);
